@@ -24,7 +24,7 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
     
     let noteTextField: UITextField = {
         let textfield = UITextField()
-        textfield.placeholder = "Enter item here"
+        textfield.placeholder = "Enter note here"
         textfield.borderStyle = .roundedRect
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
@@ -35,7 +35,7 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
         button.setTitle("Add note", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        button.addTarget(self, action:#selector(addListItem), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addNote), for: .touchUpInside)
         
         return button
     }()

@@ -38,7 +38,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     func handleRegisterButton() {
         guard let email = emailTextField.text,
             let password = passwordTextField.text,
-            let repeatedPassword = repeatedPasswordTextField.text,
             let username = userNameTextField.text else {
                 print("Form is not valid")
                 return
@@ -46,7 +45,29 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
             
-            self.registrationInputChecks(username: username, email: email, password: password, repeatedPassword: repeatedPassword, error: error)
+            
+            if error != nil {
+                
+                if let errorCode = FIRAuthErrorCode(rawValue: (error?._code)!) {
+                    switch errorCode {
+                        
+                    case .errorCodeInvalidEmail:
+                        self.alert(title: "Email Error", message: "Invalid Email.")
+                    case .errorCodeEmailAlreadyInUse:
+                        self.alert(title: "Email Error", message: "Email already in use.")
+                    case .errorCodeOperationNotAllowed:
+                        print("email and password accounts are not enabled")
+                    case .errorCodeWeakPassword:
+                        self.alert(title: "Password Error", message: "Password is too weak. Try 6 or more characters.")
+                    default:
+                        self.alert(title: "Error", message: "Unable to register.")
+                        
+                    }
+                }
+                
+                return
+            }
+            
             
             guard let uid = user?.uid else {
                 return
@@ -60,53 +81,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    // validates inputs
-    func registrationInputChecks(username: String, email:String,password: String, repeatedPassword: String, error: Error?) {
-        
-        let usernameCount = username.characters.count
-        let emailCount = email.characters.count
-        let passwordCount = password.characters.count
-        let repeatedPasswordCount = repeatedPassword.characters.count
-        
-        if usernameCount == 0 && emailCount == 0 && passwordCount == 0 && repeatedPasswordCount == 0 {
-            self.alert(title: "Error", message: "Unable to register. Missing info.")
-            return
-        }
-        
-        let usernameCountMax = 20
-        if usernameCount == 0 || usernameCount > usernameCountMax {
-            self.alert(title: "Username Error", message: "Need between 1 and \(usernameCountMax) charactors for usernames.")
-            return
-        }
-        
-        if error != nil {
-            
-            if let errorCode = FIRAuthErrorCode(rawValue: (error?._code)!) {
-                switch errorCode {
-                    
-                case .errorCodeInvalidEmail:
-                    self.alert(title: "Email Error", message: "Invalid Email.")
-                case .errorCodeEmailAlreadyInUse:
-                    self.alert(title: "Email Error", message: "Email already in use.")
-                case .errorCodeOperationNotAllowed:
-                    print("email and password accounts are not enabled")
-                case .errorCodeWeakPassword:
-                    self.alert(title: "Password Error", message: "Password is too weak. Try 6 or more characters.")
-                default:
-                    self.alert(title: "Error", message: "Unable to register.")
-                    
-                }
-            }
-            
-            return
-        }
-        
-        if password != repeatedPassword {
-            self.alert(title: "Password Error", message: "Make sure your passwords match.")
-            return
-        }
-        
-    }
+    
+    
+    
     
     func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]) {
         let ref = FIRDatabase.database().reference()
@@ -145,9 +122,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         } else if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
-            repeatedPasswordTextField.becomeFirstResponder()
-        } else if textField == repeatedPasswordTextField {
-            repeatedPasswordTextField.resignFirstResponder()
+            passwordTextField.resignFirstResponder()
         }
         return true
     }
@@ -258,15 +233,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         return view
     }()
     
-    lazy var repeatedPasswordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Repeat Password"
-        textField.delegate = self
-        textField.returnKeyType = .done
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.isSecureTextEntry = true
-        return textField
-    }()
+    
     
     var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -288,14 +255,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     var userNameTextFieldHeightAnchor: NSLayoutConstraint?
     var emailTextFieldHeightAnchor: NSLayoutConstraint?
     var passwordTextFieldHeightAnchor: NSLayoutConstraint?
-    var repeatedPasswordTextFieldHeightAnchor: NSLayoutConstraint?
+    
     
     func setupInputsContainerView() {
         //need x, y, width, height constraints
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 200)
+        inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 150)
         inputsContainerViewHeightAnchor?.isActive = true
         
         inputsContainerView.addSubview(userNameTextField)
@@ -303,14 +270,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         inputsContainerView.addSubview(emailTextField)
         inputsContainerView.addSubview(emailSeparatorView)
         inputsContainerView.addSubview(passwordTextField)
-        inputsContainerView.addSubview(passwordSeparatorView)
-        inputsContainerView.addSubview(repeatedPasswordTextField)
+        
+        
         
         //need x, y, width, height constraints
         userNameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         userNameTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
         userNameTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        userNameTextFieldHeightAnchor = userNameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4)
+        userNameTextFieldHeightAnchor = userNameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
         userNameTextFieldHeightAnchor?.isActive = true
         
         //need x, y, width, height constraints
@@ -323,7 +290,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         emailTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         emailTextField.topAnchor.constraint(equalTo: userNameTextField.bottomAnchor).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4)
+        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
         emailTextFieldHeightAnchor?.isActive = true
         
         //need x, y, width, height constraints
@@ -336,21 +303,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4)
+        passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
         passwordTextFieldHeightAnchor?.isActive = true
         
-        //need x, y, width, height constraints
-        passwordSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
-        passwordSeparatorView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
-        passwordSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        passwordSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        //need x, y, width, height constraints
-        repeatedPasswordTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
-        repeatedPasswordTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
-        repeatedPasswordTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        repeatedPasswordTextFieldHeightAnchor = repeatedPasswordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4)
-        repeatedPasswordTextFieldHeightAnchor?.isActive = true
     }
     
 }

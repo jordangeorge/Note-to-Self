@@ -47,14 +47,13 @@ class TableViewController: UITableViewController {
     }
     
     func showInfo() {
-        
+        present(InfoViewController(), animated: true, completion: nil)
     }
     
     // MARK: - UITableView functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
-        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,6 +110,8 @@ class TableViewController: UITableViewController {
     }
     
     func loadData() {
+        notes.removeAll()
+        tableView.reloadData()
         
         guard let uid = FIRAuth.auth()?.currentUser?.uid else {
             return
@@ -128,11 +129,9 @@ class TableViewController: UITableViewController {
             }
             
         }, withCancel: nil)
-        
     }
     
     func handleLogout() {
-        
         do {
             try FIRAuth.auth()?.signOut()
         } catch let error {
@@ -141,10 +140,6 @@ class TableViewController: UITableViewController {
         
         let loginViewController = LoginViewController()
         present(loginViewController, animated: true, completion: nil)
-        
-        notes.removeAll()
-        tableView.reloadData()
-        
     }
     
     func alert(title: String = "", message: String) {

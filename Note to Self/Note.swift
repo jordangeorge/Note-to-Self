@@ -8,8 +8,6 @@
 
 
 import UIKit
-import FirebaseStorage
-import FirebaseAnalytics
 import FirebaseDatabase
 
 class Note: NSObject {

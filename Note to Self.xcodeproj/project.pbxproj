@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		802B07FA1F954E2E00FC61F7 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802B07F91F954E2E00FC61F7 /* InfoViewController.swift */; };
 		80AA1D121F941E39007F1AFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AA1D111F941E39007F1AFD /* AppDelegate.swift */; };
 		80AA1D141F941E39007F1AFD /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AA1D131F941E39007F1AFD /* TableViewController.swift */; };
 		80AA1D191F941E39007F1AFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80AA1D181F941E39007F1AFD /* Assets.xcassets */; };
@@ -16,9 +17,13 @@
 		80AA1D281F941EA2007F1AFD /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AA1D271F941EA2007F1AFD /* NoteCell.swift */; };
 		80AA1D2A1F941ECC007F1AFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AA1D291F941ECC007F1AFD /* LoginViewController.swift */; };
 		80AA1D2C1F941ED9007F1AFD /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AA1D2B1F941ED9007F1AFD /* RegisterViewController.swift */; };
+		80AA1D2F1F9421F4007F1AFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80AA1D2E1F9421F4007F1AFD /* GoogleService-Info.plist */; };
+		BFC174DB1207179584968CEC /* Pods_Note_to_Self.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D5C2E6EFFA06AEFE3E0E98 /* Pods_Note_to_Self.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C46574B84FBEBEEC7B4E135 /* Pods-Note to Self.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Note to Self.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Note to Self/Pods-Note to Self.debug.xcconfig"; sourceTree = "<group>"; };
+		802B07F91F954E2E00FC61F7 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		80AA1D0E1F941E39007F1AFD /* Note to Self.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Note to Self.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AA1D111F941E39007F1AFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80AA1D131F941E39007F1AFD /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -30,6 +35,9 @@
 		80AA1D271F941EA2007F1AFD /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		80AA1D291F941ECC007F1AFD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		80AA1D2B1F941ED9007F1AFD /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		80AA1D2E1F9421F4007F1AFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		C43057F5E25060E97F3494EA /* Pods-Note to Self.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Note to Self.release.xcconfig"; path = "Pods/Target Support Files/Pods-Note to Self/Pods-Note to Self.release.xcconfig"; sourceTree = "<group>"; };
+		C7D5C2E6EFFA06AEFE3E0E98 /* Pods_Note_to_Self.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Note_to_Self.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +45,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFC174DB1207179584968CEC /* Pods_Note_to_Self.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		72AEA7DF595087E38E5F05B9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7C46574B84FBEBEEC7B4E135 /* Pods-Note to Self.debug.xcconfig */,
+				C43057F5E25060E97F3494EA /* Pods-Note to Self.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		80AA1D051F941E39007F1AFD = {
 			isa = PBXGroup;
 			children = (
 				80AA1D101F941E39007F1AFD /* Note to Self */,
 				80AA1D0F1F941E39007F1AFD /* Products */,
+				72AEA7DF595087E38E5F05B9 /* Pods */,
+				8222DD1A6F574D7287518234 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,17 +83,35 @@
 			isa = PBXGroup;
 			children = (
 				80AA1D111F941E39007F1AFD /* AppDelegate.swift */,
+				80AA1D2D1F942062007F1AFD /* Login/Registration */,
+				80AA1D131F941E39007F1AFD /* TableViewController.swift */,
+				802B07F91F954E2E00FC61F7 /* InfoViewController.swift */,
 				80AA1D231F941E73007F1AFD /* Header.swift */,
 				80AA1D271F941EA2007F1AFD /* NoteCell.swift */,
-				80AA1D131F941E39007F1AFD /* TableViewController.swift */,
-				80AA1D2B1F941ED9007F1AFD /* RegisterViewController.swift */,
-				80AA1D291F941ECC007F1AFD /* LoginViewController.swift */,
 				80AA1D251F941E8D007F1AFD /* Note.swift */,
 				80AA1D181F941E39007F1AFD /* Assets.xcassets */,
 				80AA1D1A1F941E39007F1AFD /* LaunchScreen.storyboard */,
 				80AA1D1D1F941E39007F1AFD /* Info.plist */,
+				80AA1D2E1F9421F4007F1AFD /* GoogleService-Info.plist */,
 			);
 			path = "Note to Self";
+			sourceTree = "<group>";
+		};
+		80AA1D2D1F942062007F1AFD /* Login/Registration */ = {
+			isa = PBXGroup;
+			children = (
+				80AA1D2B1F941ED9007F1AFD /* RegisterViewController.swift */,
+				80AA1D291F941ECC007F1AFD /* LoginViewController.swift */,
+			);
+			name = Login/Registration;
+			sourceTree = "<group>";
+		};
+		8222DD1A6F574D7287518234 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7D5C2E6EFFA06AEFE3E0E98 /* Pods_Note_to_Self.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,9 +121,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 80AA1D201F941E39007F1AFD /* Build configuration list for PBXNativeTarget "Note to Self" */;
 			buildPhases = (
+				4ED22DD766395C5FCE9F4EB3 /* [CP] Check Pods Manifest.lock */,
 				80AA1D0A1F941E39007F1AFD /* Sources */,
 				80AA1D0B1F941E39007F1AFD /* Frameworks */,
 				80AA1D0C1F941E39007F1AFD /* Resources */,
+				49B45F4E0A465BE142A695CB /* [CP] Embed Pods Frameworks */,
+				94DF7B36C3E8C19882564350 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -138,10 +179,59 @@
 			files = (
 				80AA1D1C1F941E39007F1AFD /* LaunchScreen.storyboard in Resources */,
 				80AA1D191F941E39007F1AFD /* Assets.xcassets in Resources */,
+				80AA1D2F1F9421F4007F1AFD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		49B45F4E0A465BE142A695CB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Note to Self/Pods-Note to Self-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4ED22DD766395C5FCE9F4EB3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		94DF7B36C3E8C19882564350 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Note to Self/Pods-Note to Self-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		80AA1D0A1F941E39007F1AFD /* Sources */ = {
@@ -155,6 +245,7 @@
 				80AA1D241F941E73007F1AFD /* Header.swift in Sources */,
 				80AA1D121F941E39007F1AFD /* AppDelegate.swift in Sources */,
 				80AA1D281F941EA2007F1AFD /* NoteCell.swift in Sources */,
+				802B07FA1F954E2E00FC61F7 /* InfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +358,7 @@
 		};
 		80AA1D211F941E39007F1AFD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C46574B84FBEBEEC7B4E135 /* Pods-Note to Self.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SSJNP7NYVC;
@@ -280,6 +372,7 @@
 		};
 		80AA1D221F941E39007F1AFD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C43057F5E25060E97F3494EA /* Pods-Note to Self.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SSJNP7NYVC;
@@ -310,6 +403,7 @@
 				80AA1D221F941E39007F1AFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

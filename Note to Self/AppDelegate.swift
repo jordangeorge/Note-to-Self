@@ -20,8 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let controller = TableViewController()
+//        let controller = InfoViewController()
         let navigationController = UINavigationController(rootViewController: controller)
         window?.rootViewController = navigationController
+//        window?.rootViewController = controller
         
         FIRApp.configure()
         
