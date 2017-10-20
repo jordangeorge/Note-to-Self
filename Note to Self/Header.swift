@@ -22,6 +22,19 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: views
+    
+    func setupViews() {
+        addSubview(noteTextField)
+        addSubview(addlistItembutton)
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]-[v1(40)]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": noteTextField, "v1": addlistItembutton]))
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": noteTextField]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": addlistItembutton]))
+    }
+    
+    
     let noteTextField: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "Enter note here"
@@ -32,23 +45,22 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
     
     lazy var addlistItembutton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Add note", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.setImage(UIImage(named: "add"), for: .normal)
+        button.tintColor = .black
+        button.imageView?.contentMode = .scaleAspectFit
+        
         
         button.addTarget(self, action: #selector(addNote), for: .touchUpInside)
         
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    func setupViews() {
-        addSubview(noteTextField)
-        addSubview(addlistItembutton)
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]-[v1(80)]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": noteTextField, "v1": addlistItembutton]))
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": noteTextField]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v0]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": addlistItembutton]))
-    }
+    
+    
+    // MARK: other
     
     func addNote() {
         let note = noteTextField.text

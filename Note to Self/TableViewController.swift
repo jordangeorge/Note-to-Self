@@ -19,36 +19,41 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
-        navigationItem.title = "Note to Self"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showInfo))
+        navigationController?.navigationBar.topItem?.title = ""
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showInfo))
+        let rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        if let font = UIFont(name: "Heiti TC", size: 17) {
+            rightBarButtonItem.setTitleTextAttributes([NSFontAttributeName:font], for: .normal)
+        }
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+
         
-        // table view config
         tableView.register(NoteCell.self, forCellReuseIdentifier: cellId)
         tableView.register(Header.self, forHeaderFooterViewReuseIdentifier: headerId)
         tableView.sectionHeaderHeight = 50
         
-        // slide to delete functionality
+        
         tableView.allowsMultipleSelectionDuringEditing = true
+        
         
         checkIfUserIsLoggedIn()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadData()
+
+        let textAttributes = [NSForegroundColorAttributeName: UIColor.white,
+                              NSFontAttributeName: UIFont(name: "Heiti TC", size: 24)!]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationItem.title = "Note to Self"
+        
+        notes.removeAll()
+        tableView.reloadData()
+        observeNotes()
     }
     
-    func checkIfUserIsLoggedIn() {
-        if FIRAuth.auth()?.currentUser?.uid == nil {
-            perform(#selector(handleLogout), with: nil, afterDelay: 0)
-        }
-    }
-    
-    func showInfo() {
-        present(InfoViewController(), animated: true, completion: nil)
-    }
     
     // MARK: - UITableView functions
     
@@ -76,17 +81,6 @@ class TableViewController: UITableViewController {
         return true
     }
     
-    // MARK: - other
-    
-    func addNote(note: String) {
-        let uid = FIRAuth.auth()?.currentUser!.uid
-        let ref = FIRDatabase.database().reference().child("users").child(uid!).child("notes")
-        let childRef = ref.childByAutoId()
-        let timestamp = Int(Date().timeIntervalSince1970)
-        let values = ["text": note, "timestamp": timestamp] as [String : Any]
-        childRef.updateChildValues(values)
-    }
-    
     override func tableView(_ tableView: UITableView, commit editingStyle:
         UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -109,9 +103,34 @@ class TableViewController: UITableViewController {
         
     }
     
-    func loadData() {
-        notes.removeAll()
-        tableView.reloadData()
+    // MARK: - other
+    
+    
+    func showInfo() {
+        present(InfoViewController(), animated: true, completion: nil)
+    }
+    
+    
+    func checkIfUserIsLoggedIn() {
+        if FIRAuth.auth()?.currentUser?.uid == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        }
+    }
+    
+    
+    func addNote(note: String) {
+        let uid = FIRAuth.auth()?.currentUser!.uid
+        let ref = FIRDatabase.database().reference().child("users").child(uid!).child("notes")
+        let childRef = ref.childByAutoId()
+        let timestamp = Int(Date().timeIntervalSince1970)
+        let values = ["text": note, "timestamp": timestamp] as [String : Any]
+        childRef.updateChildValues(values)
+        
+        // FIXME: notes being printed twice after new view is presented and then exited
+    }
+    
+    func observeNotes() {
+        
         
         guard let uid = FIRAuth.auth()?.currentUser?.uid else {
             return
@@ -120,14 +139,14 @@ class TableViewController: UITableViewController {
         let ref = FIRDatabase.database().reference().child("users").child(uid).child("notes")
         
         ref.observe(.childAdded, with: { (snapshot) in
-            
+ 
             let note = Note(snapshot: snapshot)
             self.notes.insert(note, at: 0)
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
+        
         }, withCancel: nil)
     }
     
@@ -148,6 +167,7 @@ class TableViewController: UITableViewController {
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
     
 }
 

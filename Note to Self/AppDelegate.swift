@@ -20,15 +20,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let controller = TableViewController()
-//        let controller = InfoViewController()
         let navigationController = UINavigationController(rootViewController: controller)
         window?.rootViewController = navigationController
-//        window?.rootViewController = controller
+        
+        
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.tintColor = .white
+        navigationBarAppearace.barTintColor = .black
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        
+        
+
         
         FIRApp.configure()
         
         return true
     }
+    
+  
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

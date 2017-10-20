@@ -24,12 +24,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Functions
     
     func setupViews() {
-        view.addSubview(profileImageView)
+        view.addSubview(logoImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginButton)
         view.addSubview(registerButton)
         
-        setupProfileImageView()
+        setupLogoImageView()
         setupInputsContainerView()
         setupLoginButton()
         setupRegisterButton()
@@ -187,20 +187,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    lazy var profileImageView: UIImageView = {
+    lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "placeholder")
+        imageView.image = UIImage(named: "logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    func setupProfileImageView() {
+    func setupLogoImageView() {
         //need x, y, width, height constraints
-        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        let height = view.bounds.height/20
+        logoImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: height).isActive = true
+        
+        let logoSize = view.bounds.height/3
+        logoImageView.widthAnchor.constraint(equalToConstant: logoSize).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
     }
     
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
@@ -212,7 +216,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func setupInputsContainerView() {
         //need x, y, width, height constraints
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsContainerView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12).isActive = true
+        inputsContainerView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 12).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 100)
         inputsContainerViewHeightAnchor?.isActive = true
