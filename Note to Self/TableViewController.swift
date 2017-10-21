@@ -22,14 +22,22 @@ class TableViewController: UITableViewController {
 
         
         navigationController?.navigationBar.topItem?.title = ""
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showInfo))
+        
+        
+        
+        let leftBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showInfo))
         let rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         if let font = UIFont(name: "Heiti TC", size: 17) {
-            rightBarButtonItem.setTitleTextAttributes([NSFontAttributeName:font], for: .normal)
+            leftBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+            rightBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
         }
+        navigationItem.leftBarButtonItem = leftBarButtonItem
         navigationItem.rightBarButtonItem = rightBarButtonItem
-
         
+        
+        // FIXME: need info image for leftbarbuttonitem
+        
+
         tableView.register(NoteCell.self, forCellReuseIdentifier: cellId)
         tableView.register(Header.self, forHeaderFooterViewReuseIdentifier: headerId)
         tableView.sectionHeaderHeight = 50
@@ -44,8 +52,8 @@ class TableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let textAttributes = [NSForegroundColorAttributeName: UIColor.white,
-                              NSFontAttributeName: UIFont(name: "Heiti TC", size: 24)!]
+        let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white,
+                              NSAttributedStringKey.font: UIFont(name: "Heiti TC", size: 24)!]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationItem.title = "Note to Self"
         
@@ -61,6 +69,7 @@ class TableViewController: UITableViewController {
         return notes.count
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! NoteCell
         
@@ -68,6 +77,10 @@ class TableViewController: UITableViewController {
         cell.nameLabel.text = note.text
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50;
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -106,7 +119,7 @@ class TableViewController: UITableViewController {
     // MARK: - other
     
     
-    func showInfo() {
+    @objc func showInfo() {
         present(InfoViewController(), animated: true, completion: nil)
     }
     
@@ -126,7 +139,7 @@ class TableViewController: UITableViewController {
         let values = ["text": note, "timestamp": timestamp] as [String : Any]
         childRef.updateChildValues(values)
         
-        // FIXME: notes being printed twice after new view is presented and then exited
+        // FIXME: notes being printed twice after infoVC is presented and then exited
     }
     
     func observeNotes() {
@@ -150,7 +163,7 @@ class TableViewController: UITableViewController {
         }, withCancel: nil)
     }
     
-    func handleLogout() {
+    @objc func handleLogout() {
         do {
             try FIRAuth.auth()?.signOut()
         } catch let error {

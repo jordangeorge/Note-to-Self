@@ -6,7 +6,6 @@
 //  Copyright © 2017 Jordan George. All rights reserved.
 //
 
-
 import UIKit
 import FirebaseDatabase
 
@@ -26,8 +25,3 @@ class Note: NSObject {
     }
     
 }
-
-
-
-
-

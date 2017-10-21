@@ -59,15 +59,14 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
     }()
     
     
-    
     // MARK: other
     
-    func addNote() {
+    @objc func addNote() {
         let note = noteTextField.text
         
         if (note?.isEmpty)! {
             print("need to enter item")
-        } else if (note?.characters.count)! > 40 {
+        } else if (note?.count)! > 40 {
             tableVC.alert(title: "Error", message: "Too many characters for note.")
         } else {
             tableVC.addNote(note: note!)
@@ -77,7 +76,7 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         addNote()
-        //        textField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     

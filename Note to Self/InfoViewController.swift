@@ -36,9 +36,16 @@ class InfoViewController: UIViewController {
         view.addSubview(usernameLabel)
         view.addSubview(infoLabel)
         view.addSubview(cancelButton)
-        setupUsernameLabel()
-        setupInfoLabel()
-        setupCancelButton()
+        // FIXME: fix constraints
+        
+//        setupUsernameLabel()
+//        setupInfoLabel()
+//        setupCancelButton()
+        
+        
+        
+        
+        
     }
     
     func getUsername() {
@@ -55,7 +62,7 @@ class InfoViewController: UIViewController {
     }
     
     
-    func handleDismiss() {
+    @objc func handleDismiss() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -64,7 +71,6 @@ class InfoViewController: UIViewController {
     var usernameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         label.textColor = .black
         label.textAlignment = .center
         label.text = "Logged in as "
@@ -75,9 +81,7 @@ class InfoViewController: UIViewController {
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 90).isActive = true
         usernameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        let height = view.bounds.height / 5
-        print(height)
-        infoLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
+        infoLabel.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }
     
     var infoLabel: UILabel = {
@@ -95,8 +99,7 @@ class InfoViewController: UIViewController {
         infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         infoLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 40).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        let height = view.bounds.height / 5
-        infoLabel.heightAnchor.constraint(equalToConstant: height*3).isActive = true
+        infoLabel.heightAnchor.constraint(equalToConstant: 345).isActive = true
     }
     
     lazy var cancelButton: UIButton = {

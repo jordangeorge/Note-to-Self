@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
@@ -19,6 +18,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = UIColor(red: 255, green: 255, blue: 255)
         
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     }
     
     // MARK: - Functions
@@ -35,7 +44,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         setupRegisterButton()
     }
     
-    func handleLoginButton() {
+    @objc func handleLoginButton() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             print("Form is not valid")
             return
@@ -45,8 +54,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             
             // validating inputs
-            let emailCount = email.characters.count
-            let passwordCount = password.characters.count
+            let emailCount = email.count
+            let passwordCount = password.count
             if emailCount == 0 && passwordCount == 0 {
                 self.alert(title: "Error", message: "Unable to register. Missing info.")
                 return
@@ -74,7 +83,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func handleRegisterButton() {
+    @objc func handleRegisterButton() {
         present(RegisterViewController(), animated: true, completion: nil)
     }
     
@@ -123,7 +132,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("Login", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont(name: "STHeitiTC-Medium", size: 16)
         
         button.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
         
@@ -146,7 +155,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(red: 220, green: 220, blue: 220).cgColor
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont(name: "STHeitiTC-Medium", size: 16)
         
         button.addTarget(self, action: #selector(handleRegisterButton), for: .touchUpInside)
         
@@ -189,7 +198,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
+        imageView.image = UIImage(named: "logo2")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView

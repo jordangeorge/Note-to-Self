@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
@@ -20,6 +19,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         setupViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+    }
+    
     
     // MARK: - Functions
     
@@ -35,7 +45,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         setupLoginButton()
     }
     
-    func handleRegisterButton() {
+    @objc func handleRegisterButton() {
         guard let email = emailTextField.text,
             let password = passwordTextField.text,
             let username = userNameTextField.text else {
@@ -44,7 +54,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
-            
             
             if error != nil {
                 
@@ -94,7 +103,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func handleLoginButton() {
+    @objc func handleLoginButton() {
         present(LoginViewController(), animated: true, completion: nil)
     }
     
@@ -131,7 +140,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(red: 220, green: 220, blue: 220).cgColor // light gray
+        view.layer.borderColor = UIColor(red: 220, green: 220, blue: 220).cgColor
         view.layer.masksToBounds = true
         return view
     }()
@@ -142,7 +151,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont(name: "STHeitiTC-Medium", size: 16)
         
         button.addTarget(self, action: #selector(handleRegisterButton), for: .touchUpInside)
         
@@ -164,8 +173,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         button.setTitleColor(UIColor.darkGray, for: .normal)
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(red: 220, green: 220, blue: 220).cgColor // light gray
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.borderColor = UIColor(red: 220, green: 220, blue: 220).cgColor
+        button.titleLabel?.font = UIFont(name: "STHeitiTC-Medium", size: 16)
         
         button.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
         
@@ -190,7 +199,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     let userNameSeparatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 220, green: 220, blue: 220) // light gray
+        view.backgroundColor = UIColor(red: 220, green: 220, blue: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -207,7 +216,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     let emailSeparatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 220, green: 220, blue: 220) // light gray
+        view.backgroundColor = UIColor(red: 220, green: 220, blue: 220)
         
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -225,16 +234,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     let passwordSeparatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 220, green: 220, blue: 220) // light gray
+        view.backgroundColor = UIColor(red: 220, green: 220, blue: 220)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    
-    
     var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
+        imageView.image = UIImage(named: "logo2")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
