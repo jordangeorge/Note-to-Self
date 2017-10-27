@@ -29,24 +29,7 @@ class InfoViewController: UIViewController {
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     }
     
-    
     // MARK: - Functions
-    
-    func setupViews() {
-        view.addSubview(usernameLabel)
-        view.addSubview(infoLabel)
-        view.addSubview(cancelButton)
-        // FIXME: fix constraints
-        
-//        setupUsernameLabel()
-//        setupInfoLabel()
-//        setupCancelButton()
-        
-        
-        
-        
-        
-    }
     
     func getUsername() {
         guard let uid = FIRAuth.auth()?.currentUser?.uid else {
@@ -61,12 +44,21 @@ class InfoViewController: UIViewController {
         })
     }
     
-    
     @objc func handleDismiss() {
         dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Views
+
+    func setupViews() {
+        view.addSubview(usernameLabel)
+        view.addSubview(infoLabel)
+        view.addSubview(cancelButton)
+        
+        setupUsernameLabel()
+        setupInfoLabel()
+        setupCancelButton()
+    }
     
     var usernameLabel: UILabel = {
         let label = UILabel()
@@ -79,9 +71,9 @@ class InfoViewController: UIViewController {
     
     func setupUsernameLabel() {
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 90).isActive = true
-        usernameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        infoLabel.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        usernameLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/6.5).isActive = true //90
+        usernameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -(view.bounds.width/13)).isActive = true //-24
+        infoLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/5).isActive = true //90
     }
     
     var infoLabel: UILabel = {
@@ -97,9 +89,9 @@ class InfoViewController: UIViewController {
     
     func setupInfoLabel() {
         infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        infoLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 40).isActive = true
-        infoLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        infoLabel.heightAnchor.constraint(equalToConstant: 345).isActive = true
+        infoLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: view.bounds.height/14).isActive = true //40
+        infoLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -(view.bounds.width/13)).isActive = true
+        infoLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/1.6).isActive = true //345
     }
     
     lazy var cancelButton: UIButton = {
@@ -114,9 +106,9 @@ class InfoViewController: UIViewController {
     }()
     
     func setupCancelButton() {
-        cancelButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        cancelButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        cancelButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        cancelButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: view.bounds.height/47.5).isActive = true //12
+        cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/28.4).isActive = true //20
+        cancelButton.widthAnchor.constraint(equalToConstant: view.bounds.height/19).isActive = true //30
+        cancelButton.heightAnchor.constraint(equalToConstant: view.bounds.height/19).isActive = true //30
     }
 }

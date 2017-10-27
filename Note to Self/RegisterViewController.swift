@@ -14,9 +14,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor(red: 255, green: 255, blue: 255)
-        
         setupViews()
     }
     
@@ -30,21 +28,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     }
     
-    
     // MARK: - Functions
-    
-    func setupViews() {
-        view.addSubview(logoImageView)
-        view.addSubview(inputsContainerView)
-        view.addSubview(registerButton)
-        view.addSubview(loginButton)
-        
-        setupLogoImageView()
-        setupInputsContainerView()
-        setupRegisterButton()
-        setupLoginButton()
-    }
-    
+
     @objc func handleRegisterButton() {
         guard let email = emailTextField.text,
             let password = passwordTextField.text,
@@ -77,7 +62,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            
             guard let uid = user?.uid else {
                 return
             }
@@ -89,7 +73,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
         })
     }
-    
     
     func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]) {
         let ref = FIRDatabase.database().reference()
@@ -106,8 +89,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @objc func handleLoginButton() {
         present(LoginViewController(), animated: true, completion: nil)
     }
-    
-    // MARK: - Other
     
     func alert(title: String = "", message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -134,6 +115,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Views
+    
+    func setupViews() {
+        view.addSubview(logoImageView)
+        view.addSubview(inputsContainerView)
+        view.addSubview(registerButton)
+        view.addSubview(loginButton)
+        
+        setupLogoImageView()
+        setupInputsContainerView()
+        setupRegisterButton()
+        setupLoginButton()
+    }
     
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -241,7 +234,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo2")
+        imageView.image = UIImage(named: "logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -264,7 +257,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     var emailTextFieldHeightAnchor: NSLayoutConstraint?
     var passwordTextFieldHeightAnchor: NSLayoutConstraint?
     
-    
     func setupInputsContainerView() {
         //need x, y, width, height constraints
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -278,8 +270,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         inputsContainerView.addSubview(emailTextField)
         inputsContainerView.addSubview(emailSeparatorView)
         inputsContainerView.addSubview(passwordTextField)
-        
-        
         
         //need x, y, width, height constraints
         userNameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
@@ -316,5 +306,3 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
-
-

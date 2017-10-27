@@ -45,14 +45,11 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
     
     lazy var addlistItembutton: UIButton = {
         let button = UIButton(type: .system)
-        
         button.setImage(UIImage(named: "add"), for: .normal)
         button.tintColor = .black
         button.imageView?.contentMode = .scaleAspectFit
         
-        
         button.addTarget(self, action: #selector(addNote), for: .touchUpInside)
-        
         
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

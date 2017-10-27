@@ -23,19 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: controller)
         window?.rootViewController = navigationController
         
-        
         let navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.tintColor = .white
         navigationBarAppearace.barTintColor = .black
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         
-        setupFirebase()
+        FIRApp.configure()
         
         return true
-    }
-    
-    func setupFirebase() {
-        FIRApp.configure()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

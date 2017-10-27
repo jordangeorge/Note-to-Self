@@ -20,10 +20,7 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         navigationController?.navigationBar.topItem?.title = ""
-        
-        
         
         let leftBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showInfo))
         let rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
@@ -34,17 +31,11 @@ class TableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = leftBarButtonItem
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        
-        // FIXME: need info image for leftbarbuttonitem
-        
-
         tableView.register(NoteCell.self, forCellReuseIdentifier: cellId)
         tableView.register(Header.self, forHeaderFooterViewReuseIdentifier: headerId)
         tableView.sectionHeaderHeight = 50
         
-        
         tableView.allowsMultipleSelectionDuringEditing = true
-        
         
         checkIfUserIsLoggedIn()
     }
@@ -62,13 +53,11 @@ class TableViewController: UITableViewController {
         observeNotes()
     }
     
-    
     // MARK: - UITableView functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! NoteCell
@@ -116,20 +105,17 @@ class TableViewController: UITableViewController {
         
     }
     
-    // MARK: - other
-    
+    // MARK: - Other
     
     @objc func showInfo() {
         present(InfoViewController(), animated: true, completion: nil)
     }
-    
     
     func checkIfUserIsLoggedIn() {
         if FIRAuth.auth()?.currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         }
     }
-    
     
     func addNote(note: String) {
         let uid = FIRAuth.auth()?.currentUser!.uid
@@ -143,8 +129,6 @@ class TableViewController: UITableViewController {
     }
     
     func observeNotes() {
-        
-        
         guard let uid = FIRAuth.auth()?.currentUser?.uid else {
             return
         }
@@ -180,8 +164,7 @@ class TableViewController: UITableViewController {
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    
+
 }
 
 extension UIColor {

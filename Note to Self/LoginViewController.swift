@@ -14,9 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor(red: 255, green: 255, blue: 255)
-        
         setupViews()
     }
     
@@ -31,18 +29,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Functions
-    
-    func setupViews() {
-        view.addSubview(logoImageView)
-        view.addSubview(inputsContainerView)
-        view.addSubview(loginButton)
-        view.addSubview(registerButton)
-        
-        setupLogoImageView()
-        setupInputsContainerView()
-        setupLoginButton()
-        setupRegisterButton()
-    }
     
     @objc func handleLoginButton() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
@@ -81,15 +67,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
         })
     }
-    
-    
+
     @objc func handleRegisterButton() {
         present(RegisterViewController(), animated: true, completion: nil)
     }
-    
-    
-    
-    // MARK: - Other
     
     // Hide keyboard when user touches outside keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -113,8 +94,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    
     // MARK: - Views
+    
+    func setupViews() {
+        view.addSubview(logoImageView)
+        view.addSubview(inputsContainerView)
+        view.addSubview(loginButton)
+        view.addSubview(registerButton)
+        
+        setupLogoImageView()
+        setupInputsContainerView()
+        setupLoginButton()
+        setupRegisterButton()
+    }
     
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -198,7 +190,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo2")
+        imageView.image = UIImage(named: "logo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -256,5 +248,3 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
-
-
