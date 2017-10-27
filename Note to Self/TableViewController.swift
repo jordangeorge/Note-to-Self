@@ -48,8 +48,6 @@ class TableViewController: UITableViewController {
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationItem.title = "Note to Self"
         
-        notes.removeAll()
-        tableView.reloadData()
         observeNotes()
     }
     
@@ -108,6 +106,11 @@ class TableViewController: UITableViewController {
     // MARK: - Other
     
     @objc func showInfo() {
+        guard let uid = FIRAuth.auth()?.currentUser?.uid else {
+            return
+        }
+        let ref = FIRDatabase.database().reference().child("users").child(uid).child("notes")
+        ref.removeAllObservers()
         present(InfoViewController(), animated: true, completion: nil)
     }
     
@@ -124,11 +127,12 @@ class TableViewController: UITableViewController {
         let timestamp = Int(Date().timeIntervalSince1970)
         let values = ["text": note, "timestamp": timestamp] as [String : Any]
         childRef.updateChildValues(values)
-        
-        // FIXME: notes being printed twice after infoVC is presented and then exited
     }
     
     func observeNotes() {
+        notes.removeAll()
+        tableView.reloadData()
+        
         guard let uid = FIRAuth.auth()?.currentUser?.uid else {
             return
         }
@@ -136,15 +140,12 @@ class TableViewController: UITableViewController {
         let ref = FIRDatabase.database().reference().child("users").child(uid).child("notes")
         
         ref.observe(.childAdded, with: { (snapshot) in
- 
             let note = Note(snapshot: snapshot)
             self.notes.insert(note, at: 0)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        
+            self.tableView.reloadData()
         }, withCancel: nil)
+        
+        
     }
     
     @objc func handleLogout() {
