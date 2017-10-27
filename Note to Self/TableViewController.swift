@@ -106,9 +106,7 @@ class TableViewController: UITableViewController {
     // MARK: - Other
     
     @objc func showInfo() {
-        guard let uid = FIRAuth.auth()?.currentUser?.uid else {
-            return
-        }
+        guard let uid = FIRAuth.auth()?.currentUser?.uid else { return }
         let ref = FIRDatabase.database().reference().child("users").child(uid).child("notes")
         ref.removeAllObservers()
         present(InfoViewController(), animated: true, completion: nil)
@@ -144,8 +142,6 @@ class TableViewController: UITableViewController {
             self.notes.insert(note, at: 0)
             self.tableView.reloadData()
         }, withCancel: nil)
-        
-        
     }
     
     @objc func handleLogout() {
