@@ -36,11 +36,12 @@ class Header: UITableViewHeaderFooterView, UITextFieldDelegate {
     
     
     let noteTextField: UITextField = {
-        let textfield = UITextField()
-        textfield.placeholder = "Enter note here"
-        textfield.borderStyle = .roundedRect
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        return textfield
+        let textField = UITextField()
+        textField.placeholder = "Enter note here"
+        textField.borderStyle = .roundedRect
+        textField.returnKeyType = .done
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }()
     
     lazy var addlistItembutton: UIButton = {
